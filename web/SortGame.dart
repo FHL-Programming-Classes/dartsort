@@ -14,7 +14,7 @@ class SortGame {
   ];
 
   /**
-   * Indicates marked fields as a list row, value positions.
+   * Indicates marked fields as a list of (row, value) positions.
    */
   final marked = [];
 
@@ -30,7 +30,7 @@ class SortGame {
 
   /**
    * Marks all fields with a given value.
-   * (row, col) must be a valid position, otherwise the game state is not changed.
+   * If [value] is not present, game state is not changed.
    */
   void mark(int value) {
     for (int row = 0; row < this.height; row++) {
@@ -69,7 +69,7 @@ class SortGame {
       this.values[start[0]][start[1]] = v2;
       start = next;
     }
-    this.unmark();
+    this._unmark();
   }
 
   /**
@@ -88,7 +88,7 @@ class SortGame {
   /**
    * Deletes all marks.
    */
-  void unmark() => this.marked.removeRange(0, this.marked.length);
+  void _unmark() => this.marked.removeRange(0, this.marked.length);
 
   /**
    * Returns value of game field at position (row, col).
@@ -99,11 +99,11 @@ class SortGame {
   /**
    * Checks whether a position (row, col) is on the game field.
    */
-  bool isValidPosition(int row, int col) =>
-      row >= 0 && row < height && col >= 0 && col < width;
+  bool _isValidPosition(int row, int col) => row >= 0 && row < height && col >= 0 && col < width;
 
   /**
    * Checks whether value on field (row, col) is valid.
    */
-  bool isValid(int row, int col) => value(row, col) == row * width + col + 1;
+  bool isValid(int row, int col) =>
+      _isValidPosition(row, col) && value(row, col) == row * width + col + 1;
 }
