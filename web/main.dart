@@ -27,7 +27,7 @@ void main() {
     if (!game.finished) {
       if (!watch.isRunning) watch.start();
       final elem = ev.target as HtmlElement;
-      game.mark(int.parse(elem.text, onError: (source) => 0));
+      game.mark(int.parse(elem.text, onError: (_) => 0));
       game.swap();
       view.update(game);
     }
